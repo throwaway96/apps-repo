@@ -29,6 +29,11 @@ jobs:
           fileName: "webosbrew-toolbox-*.deb"
           out-file-path: "temp"
 
+      - name: Set up tmate session
+        uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
+  
       - name: Install dependencies
         run: |
           python3 -m pip install -r ./requirements.txt
