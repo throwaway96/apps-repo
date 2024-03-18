@@ -1,11 +1,7 @@
 name: 'Site: Lint'
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths-ignore:
-      - 'packages/**'
+  workflow_call:
   workflow_dispatch:
 
 jobs:
