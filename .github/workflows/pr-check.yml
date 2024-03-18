@@ -43,6 +43,8 @@ jobs:
   pr-check:
     needs: [package-check, site-check]
     runs-on: ubuntu-latest
+    # run even when the previous steps failed/were skipped, but not when canceled
+    if: ${{ success() || failure() }}
     steps:
       - name: Status
         run: exit "${{ contains(needs.*.result, 'failure') && 1 || 0 }}"
