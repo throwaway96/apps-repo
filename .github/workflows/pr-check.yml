@@ -46,7 +46,7 @@ jobs:
     needs: [package-check, site-check]
     runs-on: ubuntu-latest
     # can't do anything fancy due to https://github.com/actions/runner/issues/491
-    if: always()
+    if: always() && !(needs.package-check.result == 'skipped' && needs.site-check.result == 'skipped')
     steps:
       - name: Status
         # check result manually

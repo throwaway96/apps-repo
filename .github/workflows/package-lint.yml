@@ -7,11 +7,17 @@ on:
         type: string
         required: true
 
+# Disable all permissions
+permissions: {}
+
 jobs:
   package-lint:
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: write
+      actions: read
+      pull-requests: read
+      contents: read # Only needed for private repository
+      issues: read # Only needed for private repository
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
@@ -25,10 +31,10 @@ jobs:
       - name: Download Homebrew Toolbox
         uses: robinraju/release-downloader@v1.9
         with:
-          repository: "webosbrew/dev-toolbox-cli"
+          repository: 'webosbrew/dev-toolbox-cli'
           latest: true
-          fileName: "webosbrew-toolbox-*.deb"
-          out-file-path: "temp"
+          fileName: 'webosbrew-toolbox-*.deb'
+          out-file-path: 'temp'
 
       - name: Install dependencies
         run: |
@@ -67,7 +73,7 @@ jobs:
         if: ${{ !env.ACT && (success() || failure()) }}
         uses: actions/upload-artifact@v4
         with:
-          name: lint-results
+          name: package-lint-results
           path: |
             /tmp/lint-report.md
             /tmp/issue-number.txt
