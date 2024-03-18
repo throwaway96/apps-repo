@@ -11,7 +11,7 @@ on:
 permissions: {}
 
 jobs:
-  report_results:
+  package-report:
     name: Check results
     runs-on: ubuntu-latest
     permissions:
