@@ -145,3 +145,5 @@ def gh_pages(c):
 def pelican_run(cmd):
     cmd += ' ' + program.core.remainder  # allows to pass-through args to pelican
     pelican_main(shlex.split(cmd))
+
+# test
