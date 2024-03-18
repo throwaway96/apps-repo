@@ -19,7 +19,9 @@ jobs:
         id: changed_files
         uses: dorny/paths-filter@v3
         with:
-          list-files: shell
+          list-files: escape
+          # the 'site' filters won't work with default 'some'
+          predicate-quantifier: every
           filters: |
             packages:
               - added|modified: 'packages/**'
@@ -43,8 +45,9 @@ jobs:
   pr-check:
     needs: [package-check, site-check]
     runs-on: ubuntu-latest
-    # run even when the previous steps failed/were skipped, but not when canceled
-    if: ${{ success() || failure() }}
+    # can't do anything fancy due to https://github.com/actions/runner/issues/491
+    if: always()
     steps:
       - name: Status
-        run: exit "${{ contains(needs.*.result, 'failure') && 1 || 0 }}"
+        # check result manually
+        run: exit "${{ ((needs.package-check.result == 'success' || needs.package-check.result == 'skipped') && (needs.site-check.result == 'success' || needs.site-check.result == 'skipped')) && 0 || 1 }}"
