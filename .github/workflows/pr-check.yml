@@ -1,0 +1,50 @@
+name: 'PR Check'
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  filter-paths:
+    permissions:
+      pull-requests: read
+    runs-on: ubuntu-latest
+    outputs:
+      need-package: ${{ steps.changed_files.outputs.packages }}
+      packages-files: ${{ steps.changed_files.outputs.packages_files }}
+      need-site: ${{ steps.changed_files.outputs.site }}
+    steps:
+      - name: Check changed files
+        id: changed_files
+        uses: dorny/paths-filter@v3
+        with:
+          list-files: shell
+          filters: |
+            packages:
+              - added|modified: 'packages/**'
+            site:
+              - '**'
+              - '!packages/**'
+              - '!README.md'
+
+  package-check:
+    needs: filter-paths
+    if: ${{ needs.filter-paths.outputs.need-package == 'true' }}
+    uses: ./.github/workflows/package-lint.yml
+    with:
+      packages: ${{ needs.filter-paths.outputs.packages-files }}
+
+  site-check:
+    needs: filter-paths
+    if: ${{ needs.filter-paths.outputs.need-site == 'true' }}
+    uses: ./.github/workflows/site-generate.yml
+
+  pr-check:
+    needs: [package-check, site-check]
+    runs-on: ubuntu-latest
+    # run even when the previous steps failed/were skipped, but not when canceled
+    if: ${{ success() || failure() }}
+    steps:
+      - name: Status
+        run: exit "${{ contains(needs.*.result, 'failure') && 1 || 0 }}"
