@@ -5,5 +5,5 @@ on:
   workflow_dispatch:
 
 jobs:
-  generate:
+  site-lint:
     uses: ./.github/workflows/site-generate.yml
