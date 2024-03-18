@@ -84,3 +84,5 @@ DEFAULT_PAGINATION = 20
 # RELATIVE_URLS = True
 
 COPYRIGHT_YEAR = datetime.date.today().year
+
+# edit for test
