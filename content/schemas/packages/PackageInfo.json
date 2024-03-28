@@ -39,6 +39,10 @@
         "webosRelease": {
           "type": "string",
           "description": "webOS Release version (check /etc/starfish-release)"
+        },
+        "soc": {
+          "type": "string",
+          "description": "System-on-Chip (found by running 'nyx-cmd DeviceInfo query device_name')"
         }
       }
     },
