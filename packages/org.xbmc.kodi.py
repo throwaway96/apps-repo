@@ -38,6 +38,9 @@ description = '''![Kodi Logo](https://raw.githubusercontent.com/xbmc/xbmc/master
 <h1 align="center">
   Welcome to Kodi Home Theater Software!
 </h1>
+<p style="color: red; font-weight: bold;">
+  NOTE: Only supports webOS 4.0 and newer! Does not work on certain 2019 models (K5Lp).
+</p>
 Kodi is an award-winning **free and open source** software media player and entertainment hub for digital media. 
 Available as a native application for **Android, Linux, BSD, macOS, iOS, tvOS and Windows operating systems**,
 Kodi runs on most common processor architectures.
