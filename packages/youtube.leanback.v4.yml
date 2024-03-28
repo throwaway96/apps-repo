@@ -1,0 +1,9 @@
+title: YouTube AdFree (test)
+iconUri: https://raw.githubusercontent.com/throwaway96/youtube-webos/main/assets/largeIcon.png
+manifestUrl: https://github.com/throwaway96/youtube-webos/releases/latest/download/youtube.leanback.v4.manifest.json
+category: multimedia
+pool: main
+description: |
+  This is just for testing. You probably shouldn't be using this.
+
+  **BE SURE TO UNINSTALL THE OFFICIAL YOUTUBE TV APP BEFORE INSTALLING**
